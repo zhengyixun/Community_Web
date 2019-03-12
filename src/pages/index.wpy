@@ -1,0 +1,48 @@
+<style lang="less">
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+</style>
+<template>
+  <view class="container">
+    <span @tap="nav">123564</span>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '滨河智慧社区'
+    };
+    components = {};
+
+    mixins = [];
+
+    data = {};
+
+    computed = {
+
+    };
+
+    methods = {
+      nav(){
+        wx.navigateTo({
+          url: 'nav?id=1'
+        })
+      }
+    };
+
+    events = {
+
+    };
+
+    onLoad() {
+
+
+    };
+  }
+</script>

@@ -1,0 +1,57 @@
+<style lang="less">
+.User_wx{
+  width: 100%;;height: auto;background: red;
+}
+.header_img{
+  width: ~'150rpx';height: ~'150rpx';border-radius: 50%;overflow:hidden;display: block;
+  float: left;
+}
+.nick_name{
+  display: block;float: left;font-size: ~'35rpx';
+}
+  .integral{
+    display: block;
+  }
+</style>
+<template>
+  <view class="container">
+    <div class="User_wx">
+      <open-data type="userAvatarUrl" class="header_img"></open-data>
+      <open-data type="userNickName" class="nick_name"></open-data>
+      <view class="integral">积分：250</view>
+    </div>
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Me extends wepy.page {
+    config = {
+      navigationBarTitleText: '滨河智慧社区'
+    };
+    components = {};
+
+    mixins = [];
+
+    data = {};
+
+    computed = {
+    };
+
+    methods = {
+    };
+
+    events = {
+    };
+
+    onLoad() {
+      // 必须是在用户已经授权的情况下调用
+      wx.getUserInfo({
+        success(res) {
+          console.log(res)
+        }
+      })
+    };
+  }
+</script>

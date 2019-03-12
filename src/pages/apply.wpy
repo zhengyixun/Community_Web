@@ -1,0 +1,35 @@
+<style>
+
+
+</style>
+<template>
+  <view class="container">
+    pply
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Apply extends wepy.page {
+    config = {
+      navigationBarTitleText: '滨河智慧2社区'
+    };
+    components = {};
+
+    mixins = [];
+
+    data = {};
+
+    computed = {
+    };
+
+    methods = {
+    };
+
+    events = {
+    };
+
+    onLoad() {
+    };
+  }
+</script>

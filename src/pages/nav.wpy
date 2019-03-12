@@ -1,0 +1,19 @@
+<template>
+    <view>
+        滨河123465789
+    </view>
+</template>
+<script>
+    import wepy from 'wepy';
+
+    export default class  Nav extends wepy.page {
+        config = {
+            navigationBarTitleText: "滨河智慧社区"
+        };
+        data = {};
+        methods = {};
+
+        onLoad() {
+        }
+    }
+</script>
