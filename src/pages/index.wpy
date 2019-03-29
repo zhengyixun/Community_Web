@@ -4,34 +4,135 @@
     flex-direction: column;
     align-items: center;
   }
-
+.loadings{
+  width: ~'50rpx';
+  height: ~'50rpx';
+}.loadings1{
+  width: ~'50rpx';
+  height: ~'50rpx';
+   display: none;
+}
+  view{
+    line-height: ~'100rpx';
+  }
 </style>
 <template>
   <view class="container">
     <span @tap="nav">123564</span>
+    <span @tap="tap">test[mixins]</span>
+    <view @tap="removeStorages">移除缓存</view>
+    <view @tap="showToasts('成功s')">弹出框showToast</view>
+    <view @tap="shows2">弹出框showModal</view>
+    <view @tap="shows3">弹出框showActionsheet</view>
+    <view @tap="load">加载中***</view>
+    <view @tap="ajaxs">ajax请sss求</view>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
+  import wepy from 'wepy';
+  import tests from "@/mixins/test.js"
+  import alerts from "@/mixins/alert.js";
+  import {Ajaxs} from "@/mixins/ajaxs.js";
+  import f from "@/mixins/tests.js";
+  import AES from "@/mixins/AES.js";
   export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: '滨河智慧社区'
+      navigationBarTitleText: '滨和智s慧社区'
     };
-    components = {};
+    components = {
+    };
 
-    mixins = [];
+    mixins = [tests,alerts];
 
-    data = {};
+    data = {
+      loadings:'loadings1',
+      dataList:[
+        {name:"a",id:"1"},
+        {name:"b",id:"2"},
+        {name:"c",id:"3"},
+      ]
+    };
 
     computed = {
 
     };
 
+    onPullDownRefresh () {
+      wx.stopPullDownRefresh()
+    }
     methods = {
+      //测试ajax
+      ajaxs(){
+        let data = JSON.stringify({
+          uname:'admin',
+          pass:'2',
+          vcode:'1'
+        });
+        wx.request({
+          method:"POST",
+          url: "http://studyServer.study.com/manage.ashx/Login", // 仅为示例，并非真实的接口地址
+          data: data,
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success(res) {
+            console.log(res.data)
+          }
+        })
+      },
+      load(){
+        wx.showLoading({
+          title: '加载中',
+          mask:true
+        });
+
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 2000)
+      },
+      shows2(){
+        wx.showModal({
+          title: '提示',
+          content: '这是一个模态弹窗',
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      },
+      shows3(){
+        wx.showActionSheet({
+          itemList: ['item1', 'item2', 'item3'],
+          success: function(res) {
+            console.log(res)
+          },
+          fail: function(res) {
+            console.log(res.errMsg)
+          }
+        })
+      },
       nav(){
+        this.$preload("userName","casd");
         wx.navigateTo({
-          url: 'nav?id=1'
+          url: 'nav?id=1&name=湛山'
+        })
+      },
+      //移除缓存
+      removeStorages(){
+        wx.removeStorage({
+          key:"loginInfo",
+          success(e){
+            if(e.data === undefined){
+              console.log("移除成功");
+              wx.redirectTo({
+                url: 'signin?id=1'
+              })
+            }
+          }
         })
       }
     };
@@ -41,8 +142,15 @@
     };
 
     onLoad() {
+      //console.log(f.f() + "--------------");
 
-
+      //
+      // console.log(AES.MD5("123"));
+      // console.log(AES.AES.encrypt("1","",""));
+      console.log(AES.AES.encrypt);
     };
+    onShow(){
+
+    }
   }
 </script>

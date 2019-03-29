@@ -19,11 +19,16 @@
     <button @tap="plus" size="mini">  +  </button>
     <button @tap="minus" size="mini">  -  </button>
     <text class="count" :class="{red: num > 55, green: num < 45}"> {{num}} </text>
+
+    <span  @tap="broadcast">broadcast</span>
+
+    <span>{{syncTitle}}</span>
+
   </view>
 </template>
 <script>
   import wepy from 'wepy'
-
+  import group from "@/components/list"
   export default class Counter extends wepy.component {
     props = {
       num: {
@@ -32,15 +37,21 @@
           return +v
         },
         default: 50
-      }
-    }
-
+      },
+      //单项动态传值
+      syncTitle: {
+        type: String,
+        default: 'null'
+      },
+    };
+    components={
+      group
+    };
     data = {
-    }
+    };
     events = {
-      'index-broadcast': (...args) => {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+      "broadcast":(a,b,c,$event)=>{
+        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`);
       }
     }
 
@@ -51,6 +62,7 @@
     }
 
     methods = {
+
       plus () {
         this.num = this.num + 1
         console.log(this.$name + ' plus tap')

@@ -24,7 +24,10 @@
 
     components = {
       groupitem: GroupItem
-    }
+    };
+    events={
+
+    };
     methods = {
       tap () {
         this.grouplist.name = `Parent Random(${Math.random()})`

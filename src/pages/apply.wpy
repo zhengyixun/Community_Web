@@ -29,7 +29,7 @@
     events = {
     };
 
-    onLoad() {
-    };
+    onLoad(params, data) {
+    }
   }
 </script>

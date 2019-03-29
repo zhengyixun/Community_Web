@@ -103,7 +103,7 @@
       toast: Toast
     }
 
-    mixins = [testMixin]
+    mixins = [testMixin];
 
     data = {
       mynum: 20,

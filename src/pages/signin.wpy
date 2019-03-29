@@ -1,0 +1,87 @@
+<style lang="less">
+  .counter{
+    margin-top: ~'50rpx';
+  }
+</style>
+<template>
+    <view>
+        <span @tap="signin">signin</span>
+      <view>{{nums}}</view>
+      <!--组件循环渲染-->
+      <repeat for="{{list}}" key="index" item="item">
+        <counter class="counter" :syncTitle.sync="item.name"></counter>
+      </repeat>
+
+    </view>
+</template>
+<script>
+    import wepy from 'wepy';
+    //引入子组件
+    import counter from "@/components/counter";
+    export default class Signin extends wepy.page {
+        config = {
+            navigationBarTitleText: "滨河智慧社区"
+        };
+        components={
+          counter:counter,
+        };
+        data = {
+          nums:1,
+          list:[
+            {name:"admin",age:"10"},
+            {name:"admin1",age:"11"},
+            {name:"admin2",age:"12"},
+            {name:"admin3",age:"13"},
+          ],
+          parentTitle:"父向子单向动态传值",
+        };
+        onLoad(params, data){
+          let that = this;
+          wx.getStorage({
+            key: 'loginInfo',
+            success(res) {
+              if(res.data === "yes"){
+                that.methods.signin();
+              }else{
+                wx.setStorage({
+                  key: 'loginInfo',
+                  data: 'yes'
+                });
+              }
+            }
+          });
+
+          // let t = setInterval(()=>{
+          //   this.nums ++;
+          //   this.$apply();
+          //   if(this.nums>=5){
+          //     clearInterval(t);
+          //   }
+          // },1000);
+
+        };
+        watch={
+          nums(news,olds){
+            console.log(news);
+          }
+        };
+        events={
+
+        };
+        methods = {
+
+          signin(){
+            wx.switchTab({
+              url: 'index',
+              success(){
+                wx.setStorage({
+                  key: 'loginInfo',
+                  data: 'yes'
+                });
+              }
+            });
+
+          }
+        };
+    }
+</script>

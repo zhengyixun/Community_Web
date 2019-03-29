@@ -13,7 +13,10 @@
         data = {};
         methods = {};
 
-        onLoad() {
+        onLoad(params, data) {
+            console.log(data.preload.userName);
+            //wepy 接受参数
+            console.log(params)
         }
     }
 </script>
